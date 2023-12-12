@@ -16,10 +16,14 @@
 
 package android.template.data.local.database
 
+import android.template.data.local.dao.TransactionDao
+import android.template.data.local.entity.Transaction
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [MyModel::class], version = 1)
+@Database(entities = [MyModel::class, Transaction::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun myModelDao(): MyModelDao
+  abstract fun myModelDao(): MyModelDao
+
+  abstract fun transactionDao(): TransactionDao
 }

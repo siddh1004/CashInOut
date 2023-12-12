@@ -17,6 +17,7 @@
 package android.template.data.local.di
 
 import android.content.Context
+import android.template.data.local.dao.TransactionDao
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -31,18 +32,23 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
-    @Provides
-    fun provideMyModelDao(appDatabase: AppDatabase): MyModelDao {
-        return appDatabase.myModelDao()
-    }
+  @Provides
+  fun provideMyModelDao(appDatabase: AppDatabase): MyModelDao {
+    return appDatabase.myModelDao()
+  }
 
-    @Provides
-    @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "MyModel"
-        ).build()
-    }
+  @Provides
+  fun provideTransactionDao(appDatabase: AppDatabase): TransactionDao {
+    return appDatabase.transactionDao()
+  }
+
+  @Provides
+  @Singleton
+  fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+    return Room.databaseBuilder(
+      appContext,
+      AppDatabase::class.java,
+      "MyModel"
+    ).build()
+  }
 }
